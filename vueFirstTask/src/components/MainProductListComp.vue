@@ -87,7 +87,6 @@ const products = computed(() => {
   margin: 0 40px;
 }
 
-
 .productClass {
   width: 20%;
   border: 1px solid rgb(0, 108, 72);
@@ -98,7 +97,7 @@ const products = computed(() => {
   flex-direction: column;
   padding: 20px;
   justify-content: space-between;
-  height: 100%!important;
+  /* height: 100%!important; */
 }
 
 .productClassimg {
