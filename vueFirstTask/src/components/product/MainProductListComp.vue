@@ -1,18 +1,18 @@
 <template>
-  <div :class="productsClass">
-    <div :class="productClass" v-for="product in products" :key="product.id">
+  <div class="productsClass" :class="{mainDarkBGCN: LDMode, mainDarkB:LDMode}">
+    <div class="productClass" :class="{mainDarkBGC: LDMode, mainDarkC: LDMode, mainDarkB: LDMode}"  v-for="product in products" :key="product.id">
       <div>
-        <img :class="productClassimg" :src="product.image" />
+        <img class="productClassimg" :class="{mainDarkB: LDMode}" :src="product.image" />
       </div>
       <div style="flex-grow: 1;">
-        <h2 :class="productClassh2">{{ product.title }}</h2>
-        <h3 :class="productClassh2">${{ product.price }}</h3>
-        <h4 :class="productClassh2">{{ product.category }}</h4>
-        <p :class="productClassh2">{{ product.description }}</p>
+        <h2 :class="{mainDarkC: LDMode}">{{ product.title }}</h2>
+        <h3 :class="{mainDarkC: LDMode}">${{ product.price }}</h3>
+        <h4 :class="{mainDarkC: LDMode}">{{ product.category }}</h4>
+        <p :class="{mainDarkC: LDMode}">{{ product.description }}</p>
       </div>
       <div class="displayFlex">
-        <button :class="productClassButton" @click="deleteProduct(product.id)">DELETE</button>
-        <button :class="productClassButton" @click="updateProduct(product)">EDIT</button>
+        <button class="productClassButton" :class="{mainDarkBGCN:LDMode, mainDarkB:LDMode}" @click="deleteProduct(product.id)">DELETE</button>
+        <button class="productClassButton" :class="{mainDarkBGCN:LDMode, mainDarkB:LDMode}" @click="updateProduct(product)">EDIT</button>
       </div>
     </div>
   </div>
@@ -25,20 +25,12 @@ const store = useStore()
 
 const LDMode = computed(() => store.getters.getLDMode);
 
-const productsClass = computed(() => (LDMode.value ? 'productsClass' : 'productsClass mainDarkBGCN mainDarkB'));
-const productClass = computed(() => (LDMode.value ? 'productClass' : 'productClass mainDarkBGC mainDarkC mainDarkB'));
-const productClassButton = computed(() => (LDMode.value ? 'productClassButton' : 'productClassButton mainDarkBGCN mainDarkB'));
-const productClassimg = computed(() => (LDMode.value ? 'productClassimg' : 'productClassimg mainDarkB'));
-const productClassh2 = computed(() => (LDMode.value ? 'productClassh2' : 'productClassh2 mainDarkC'));
-
-
 function deleteProduct(productId) {
   store.dispatch('deleteProduct', productId)
 }
 
 function updateProduct(product) {
   store.commit('CHANGE_EDIT_MODE', product)
-  console.log('eddit mode', product)
 }
 
 onMounted(() => {
@@ -46,8 +38,6 @@ onMounted(() => {
 })
 
 const products = computed(() => {
-  console.log('xcvbn', store.state.product.products)
-
   return store.state.product.products
 });
 </script>
@@ -97,7 +87,6 @@ const products = computed(() => {
   flex-direction: column;
   padding: 20px;
   justify-content: space-between;
-  /* height: 100%!important; */
 }
 
 .productClassimg {
@@ -116,6 +105,7 @@ const products = computed(() => {
   color: white;
   width: 100%;
   height: 40px;
+  cursor: pointer;
 }
 
 .displayFlex {

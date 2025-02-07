@@ -1,8 +1,8 @@
 <template>
-  <button :class="addNewProductClass" @click="openNewProdInput()" type="button">
+  <button class="addNewProduct" :class="{mainDark:LDMode}" @click="openNewProdInput()" type="button">
     ADD NEW PRODUCT
   </button>
-  <form :class="form" v-if="openClose" action="">
+  <form :class="{mainDark:LDMode}" v-if="openClose" action="">
     <label for="img">Image path</label>
     <input v-model="image" name="img" type="text" placeholder="Enter your image path" />
     <label for="title">Title</label>
@@ -24,16 +24,16 @@
       placeholder="Enter your description"
     />
     <div class="displayFlex">
-      <button :class="btn" type="button" @click="closeNewProdInput()">Close</button>
+      <button :class="{mainDark:LDMode}" type="button" @click="closeNewProdInput()">Close</button>
       <button
-        :class="btn"
+        :class="{mainDark:LDMode}"
         type="button"
         @click="updateProductFunc"
         v-if="store.getters.getEditProduct"
       >
         Edit
       </button>
-      <button :class="btn" type="button" @click="addNewProduct" v-else>Add</button>
+      <button :class="{mainDark:LDMode}" type="button" @click="addNewProduct" v-else>Add</button>
     </div>
   </form>
 </template>
@@ -44,13 +44,6 @@ import { useStore } from "vuex";
 const store = useStore();
 
 const LDMode = computed(() => store.getters.getLDMode);
-
-//Ligt Dark Mode
-const addNewProductClass = computed(() =>
-  LDMode.value ? "addNewProduct" : "addNewProduct mainDark"
-);
-const form = computed(() => (LDMode.value ? "form" : "form mainDark"));
-const btn = computed(() => (LDMode.value ? "button" : "button mainDark"));
 
 const openClose = ref(false);
 
@@ -100,8 +93,6 @@ const updateProductFunc = async () => {
   };
 
   await store.dispatch("updateProduct", updatedProduct);
-  console.log("Product updated successfully");
-
   store.commit("CHANGE_EDIT_MODE", null);
   resetForm();
 };
@@ -196,11 +187,10 @@ main {
   border: 1px solid rgb(0, 48, 32);
   background-color: rgb(0, 87, 58);
   border-radius: 4px;
-  /* padding: 0 70px; */
   margin: 0 40px 40px 40px;
   color: white;
-  /* width: 100%; */
   height: 40px;
+  cursor: pointer;
 }
 
 .mainDark {
@@ -240,16 +230,15 @@ form button {
   color: white;
   width: 100%;
   height: 40px;
+  cursor: pointer;
 }
 
 form input {
   font-family: "Golos Text", sans-serif;
   border: 1px solid rgb(0, 48, 32);
-  /* background-color: rgb(0, 87, 58); */
   border-radius: 4px;
   padding: 5px 10px;
   color: rgb(0, 87, 58);
-  /* width: 100%; */
   height: 20px;
   text-decoration: none;
 }

@@ -1,20 +1,15 @@
 <template>
-  <main :class="mainClass">
-    <h1 :class="h1Class">My FIRST task in VUE</h1>
+  <main :class="{ mainDark: LDMode }">
+    <h1 :class="{ mainDark: LDMode }">My FIRST task in VUE</h1>
   </main>
 </template>
 
 <script setup>
-
 import { computed } from 'vue'
 import { useStore } from 'vuex'
 
 const store = useStore()
 const LDMode = computed(() => store.getters.getLDMode);
-
-const mainClass = computed(() => (LDMode.value ? 'main' : 'main mainDark'));
-const h1Class = computed(() => (LDMode.value ? 'h1' : 'h1 mainDark'));
-
 </script>
 
 <style scoped>
@@ -31,7 +26,7 @@ main {
   font-family: 'Golos Text', sans-serif;
 }
 
-.mainDark{
+.mainDark {
   background-color: rgb(255, 111, 159);
   color: rgb(255, 207, 223) !important;
 }

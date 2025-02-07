@@ -2,11 +2,12 @@ import { createStore } from 'vuex'
 
 const theme = {
   state: {
-    LDMode: true,
+    LDMode: localStorage.getItem('LDMode') === 'true',
   },
   mutations: {
-    TOGGLE_THEME(state) {
+    toggleTheme(state) {
       state.LDMode = !state.LDMode
+      localStorage.setItem('LDMode', state.LDMode)
     },
   },
   getters: {
@@ -21,47 +22,26 @@ const todoList = {
     doneTasks: [],
   },
   mutations: {
-    ADD_NEW_TASK: (state, newTask) => {
+    addNewTask: (state, newTask) => {
       state.tasks.push(newTask)
     },
-    DEL_TASK: (state, taskId) => {
-      state.tasks = state.tasks.filter((task) => task.id !== taskId)
+    deleteTask: (state, task) => {
+      state[task.stage] = state[task.stage].filter((task1) => task1.id !== task.id)
     },
-    ADD_IN_PROCESS_TASK: (state, IPtask) => {
+    addinProcessTask: (state, IPtask) => {
       state.inProcessTasks.push(IPtask)
-      state.tasks = state.tasks.filter((task) => task.stage !== 'inProcess')
+      state.tasks = state.tasks.filter((task) => task.stage !== 'inProcessTasks')
     },
-    DEL_IN_TASK: (state, IntaskId) => {
-      state.inProcessTasks = state.inProcessTasks.filter((inProcessTask) => inProcessTask.id !== IntaskId)
-    },
-    DONE_TASK:( state, Dtask) => {
+    addDoneTask:( state, Dtask) => {
       state.doneTasks.push(Dtask)
-      state.inProcessTasks = state.inProcessTasks.filter((inProcessTask) => inProcessTask.stage !== 'done')
+      state.inProcessTasks = state.inProcessTasks.filter((inProcessTask) => inProcessTask.stage !== 'doneTasks')
     },
-    DEL_DONE_TASK: (state, DtaskId) => {
-      state.doneTasks = state.doneTasks.filter((doneTask) => doneTask.id !== DtaskId)
-    },
-  },
-  actions: {
-    addNewTask: ({ commit }, newTask) => {
-      commit('ADD_NEW_TASK', newTask)
-    },
-    deleteTask: ({ commit }, taskId) => {
-      commit('DEL_TASK', taskId)
-    },
-    deleteINTask: ({ commit }, IntaskId) => {
-      commit('DEL_IN_TASK', IntaskId)
-    },
-    addinProcessTask: ({ commit }, IPtask) => {
-      commit('ADD_IN_PROCESS_TASK', IPtask)
-    },
-    addDoneTask: ({ commit }, Dtask ) => {
-      commit('DONE_TASK', Dtask)
-    },
-    deleteDTask: ({ commit }, DtaskId) => {
-      commit('DEL_DONE_TASK', DtaskId)
-    },
-  },
+    moveTask: (state, { from, to, task }) => {
+      task.stage = to;
+      state[to].push(task);
+      state[from] = state[from].filter((t) => t.stage !== to);
+    }
+  }
 }
 
 const product = {

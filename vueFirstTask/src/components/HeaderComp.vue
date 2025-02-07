@@ -1,5 +1,5 @@
 <template>
-  <header :class="headerClass" >
+  <header :class="{headerDark: LDMode}" >
     <div class="headerContainer">
       <div class="headerLogo">
         <RouterLink to="/">
@@ -37,11 +37,9 @@ import { useStore } from 'vuex'
 const store = useStore()
 const LDMode = computed(() => store.getters.getLDMode)
 
-const headerClass = computed(() => (LDMode.value ? 'header' : 'header headerDark'))
-
 function changeLDmode() {
-  console.log("LDMode", LDMode);
-  store.commit('TOGGLE_THEME')
+  store.commit('toggleTheme')
+  console.log(LDMode.value);
 }
 </script>
 
@@ -72,9 +70,8 @@ ul {
   padding: 0;
 }
 
-.header {
+header {
   font-family: 'Golos Text', sans-serif;
-
   background-color: rgb(0 118 79);
   padding: 44px 70px;
   position: block;

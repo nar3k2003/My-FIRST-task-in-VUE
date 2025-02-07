@@ -1,7 +1,7 @@
 <template>
-  <main :class="main">
-    <h1 :class="h1class">My TO-DO list</h1>
-    <div :class="toDo">
+  <main :class="{ mainDarkBGC: LDMode }">
+    <h1 :class="{ mainDarkC: LDMode }">My TO-DO list</h1>
+    <div class="toDo" :class="{ mainDarkBGCN: LDMode, mainDarkB: LDMode }">
       <div class="blocks">
         <ToDoNewTask />
         <ToDoInprocess />
@@ -22,10 +22,6 @@ import { useStore } from 'vuex'
 const store = useStore()
 
 const LDMode = computed(() => store.getters.getLDMode);
-
-const main = computed(() => (LDMode.value ? 'main' : 'main mainDarkBGC'));
-const h1class = computed(() => (LDMode.value ? 'h1' : 'h1 mainDarkC '));
-const toDo = computed(() => (LDMode.value ? 'toDo' : 'toDo mainDarkBGCN mainDarkB'));
 </script>
 
 <style scoped>
@@ -34,28 +30,28 @@ const toDo = computed(() => (LDMode.value ? 'toDo' : 'toDo mainDarkBGCN mainDark
   src: url(../assets/fonts/GolosText-VariableFont_wght.ttf);
 }
 
-.mainDarkBGC{
+.mainDarkBGC {
   background-color: rgb(255, 111, 159) !important;
 }
 
-.mainDarkBGCN{
+.mainDarkBGCN {
   background-color: rgb(255, 137, 176) !important;
 }
 
-.mainDarkBGCTD{
+.mainDarkBGCTD {
   background-color: rgb(255, 168, 197) !important;
 }
 
-.mainDarkC{
+.mainDarkC {
   color: rgb(255, 207, 223) !important;
 }
 
-.mainDarkB{
-  border: 1px solid rgb(255, 147, 183) !important
+.mainDarkB {
+  border: 1px solid rgb(255, 147, 183) !important;
 }
 
-.mainDarkBTD{
-  border: 1px solid rgb(255, 207, 223) !important
+.mainDarkBTD {
+  border: 1px solid rgb(255, 207, 223) !important;
 }
 
 main {
@@ -83,7 +79,7 @@ h1 {
   position: relative;
 }
 
-.addToDoBtn {
+/* .addToDoBtn {
   font-family: 'Golos Text', sans-serif;
   position: absolute;
   top: 90%;
@@ -93,7 +89,7 @@ h1 {
   border-radius: 4px;
   padding: 5px 10px;
   color: white;
-}
+} */
 
 .blocks {
   display: flex;

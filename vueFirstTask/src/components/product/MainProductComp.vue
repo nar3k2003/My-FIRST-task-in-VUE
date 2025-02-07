@@ -1,6 +1,6 @@
 <template>
-  <main :class="mainClass">
-    <h1 :class="h1Class"> My PRODUCT list</h1>
+  <main :class="{mainDark: LDMode}">
+    <h1 :class="{mainDark:LDMode}"> My PRODUCT list</h1>
     <MainProductInputComp />
     <MainProductListComp />
   </main>
@@ -11,11 +11,10 @@ import MainProductListComp from './MainProductListComp.vue'
 import MainProductInputComp from './MainProductInputComp.vue'
 import { computed } from 'vue'
 import { useStore } from 'vuex'
+
 const store = useStore()
 const LDMode = computed(() => store.getters.getLDMode);
 
-const mainClass = computed(() => (LDMode.value ? 'main' : 'main mainDark'));
-const h1Class = computed(() => (LDMode.value ? 'h1' : 'h1 mainDark'));
 </script>
 
 <style scoped>

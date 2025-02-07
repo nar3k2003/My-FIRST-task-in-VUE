@@ -1,7 +1,7 @@
 <script setup>
 import { RouterView } from 'vue-router'
 import HeaderComp from '@/components/HeaderComp.vue'
-import MainProductComp from '@/components/MainProductComp.vue'
+import MainProductComp from '@/components/product/MainProductComp.vue'
 </script>
 
 <template>
