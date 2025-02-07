@@ -28,14 +28,6 @@ const todoList = {
     deleteTask: (state, task) => {
       state[task.stage] = state[task.stage].filter((task1) => task1.id !== task.id)
     },
-    addinProcessTask: (state, IPtask) => {
-      state.inProcessTasks.push(IPtask)
-      state.tasks = state.tasks.filter((task) => task.stage !== 'inProcessTasks')
-    },
-    addDoneTask:( state, Dtask) => {
-      state.doneTasks.push(Dtask)
-      state.inProcessTasks = state.inProcessTasks.filter((inProcessTask) => inProcessTask.stage !== 'doneTasks')
-    },
     moveTask: (state, { from, to, task }) => {
       task.stage = to;
       state[to].push(task);
